@@ -1,43 +1,43 @@
 #!/bin/bash
 
-# Weckzeiten festlegen
+# Define times for daily server wake-up
 
-montag="20:00"
-dienstag="20:00"
-mittwoch="20:00"
-donnerstag="20:00"
-freitag="20:00"
-samstag="20:00"
-sonntag="15:00"
+monday="20:00"
+tuesday="20:00"
+wednesday="20:00"
+thursday="20:00"
+friday="20:00"
+saturday="20:00"
+sunday="15:00"
 
-wochentag=$(date +%u)
+weekday=$(date +%u)
 
-case "$wochentag" in
-1) weckzeit="$montag" ; nextweckzeit="$dienstag"
+case "$weekday" in
+1) boot_time="$monday" ; next_boot_time="$tuesday"
 ;;
-2) weckzeit="$dienstag" ; nextweckzeit="$mittwoch"
+2) boot_time="$tuesday" ; next_boot_time="$wednesday"
 ;;
-3) weckzeit="$mittwoch" ; nextweckzeit="$donnerstag"
+3) boot_time="$wednesday" ; next_boot_time="$thursday"
 ;;
-4) weckzeit="$donnerstag" ; nextweckzeit="$freitag"
+4) boot_time="$thursday" ; next_boot_time="$friday"
 ;;
-5) weckzeit="$freitag" ; nextweckzeit="$samstag"
+5) boot_time="$friday" ; next_boot_time="$saturday"
 ;;
-6) weckzeit="$samstag" ; nextweckzeit="$sonntag"
+6) boot_time="$saturday" ; next_boot_time="$sunday"
 ;;
-7) weckzeit="$sonntag" ; nextweckzeit="$montag"
+7) boot_time="$sunday" ; next_boot_time="$monday"
 ;;
 esac
 
-vergleich_jetzt=$(date +%H%M)
-vergleich_weckzeit=${weckzeit:0:2}${weckzeit:3:2}
+compare_now=$(date +%H%M)
+compare_boot_time=${boot_time:0:2}${boot_time:3:2}
 
-if [ "$vergleich_jetzt" -ge "$vergleich_weckzeit" ]
+if [ "$compare_now" -ge "$compare_boot_time" ]
 then
-rtcwake -m no -u -t $(date +%s -d 'tomorrow '$nextweckzeit'')
+rtcwake -m no -u -t $(date +%s -d 'tomorrow '$next_boot_time'')
 else
-rtcwake -m no -u -t $(date +%s -d 'today '$weckzeit'')
-at -f /home/tobias/.aufwecken $weckzeit
+rtcwake -m no -u -t $(date +%s -d 'today '$boot_time'')
+at -f /home/tobias/.aufwecken $boot_time
 fi
 
 cat /proc/driver/rtc

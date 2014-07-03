@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Weckzeiten festlegen
+
 montag="20:00"
 dienstag="20:00"
 mittwoch="20:00"

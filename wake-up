@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Define times for daily server wake-up
+#
 
 monday="20:00"
 tuesday="20:00"

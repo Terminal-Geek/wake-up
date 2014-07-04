@@ -38,7 +38,7 @@ then
 rtcwake -m no -u -t $(date +%s -d 'tomorrow '$next_boot_time'')
 else
 rtcwake -m no -u -t $(date +%s -d 'today '$boot_time'')
-at -f /home/tobias/.aufwecken $boot_time
+at -f /home/tobias/.wake-up $boot_time
 fi
 
 cat /proc/driver/rtc
